@@ -6,6 +6,9 @@ resource "aws_subnet" "db-subnet1" {
 
   tags = {
     Name = var.db-subnet1-name
+    environment = var.environment
+    owner = var.owner
+    project = var.project
   }
 }
 
@@ -17,5 +20,8 @@ resource "aws_subnet" "db-subnet2" {
 
   tags = {
     Name = var.db-subnet2-name
+    environment = var.environment
+    owner = var.owner
+    project = var.project
   }
 }

@@ -10,11 +10,40 @@ resource "aws_launch_template" "template-web" {
   }
 
   user_data = filebase64("user-data.sh")
-  tag_specifications {
 
+  block_device_mappings {
+    device_name = "/dev/sda1"
+    ebs {
+      volume_size = 30
+      volume_type = "gp2"
+      delete_on_termination = true
+    }
+  }
+
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      max_price = "0.05"
+    }
+  }
+
+  tag_specifications {
     resource_type = "instance"
     tags = {
-      Name = var.web-instance-name
+      Name        = var.web-instance-name
+      Environment = var.environment
+      Owner       = var.owner
+      Project     = var.project
+    }
+  }
+
+  tag_specifications {
+    resource_type = "volume"
+    tags = {
+      Name        = var.web-instance-name
+      Environment = var.environment
+      Owner       = var.owner
+      Project     = var.project
     }
   }
 }

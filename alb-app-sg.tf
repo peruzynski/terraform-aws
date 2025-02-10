@@ -11,6 +11,13 @@ resource "aws_security_group" "alb-security-group-app" {
     security_groups = [aws_security_group.asg-security-group-web.id]
   }
 
+  ingress {
+    description = "SSH from Internet"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # change this to your IP
+  }
 
   egress {
     from_port   = 0
@@ -20,6 +27,9 @@ resource "aws_security_group" "alb-security-group-app" {
   }
 
   tags = {
-    Name = var.alb-sg-app-name
+    Name        = var.alb-sg-app-name
+    Environment = var.environment
+    Owner       = var.owner
+    Project     = var.project
   }
 }

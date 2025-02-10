@@ -177,3 +177,15 @@ variable "db-subnet-grp-name" {
 variable "app-db-sg-name" {
   description = "Name for App-DB SEcurity group"
 }
+
+variable "environment" {
+  description = "Deployment environment (e.g., dev, staging, prod)"
+}
+
+variable "project" {
+  description = "Licencjat"
+}
+
+variable "owner" {
+  description = "Your name"
+}

@@ -12,7 +12,7 @@ resource "aws_security_group" "asg-security-group-web" {
   }
 
   ingress {
-    description = "SSH From Anywhere or Your-IP"
+    description = "SSH From Anywhere"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -28,5 +28,8 @@ resource "aws_security_group" "asg-security-group-web" {
 
   tags = {
     Name = var.asg-sg-web-name
+    Environment = var.environment
+    Owner = var.owner
+    Project = var.project
   }
 }

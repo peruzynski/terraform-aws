@@ -8,6 +8,9 @@ resource "aws_route_table" "private-route-table" {
 
   tags = {
     Name = var.private-rt-name
+    Environment = var.environment
+    Owner       = var.owner
+    Project     = var.project
   }
 }
 

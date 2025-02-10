@@ -28,5 +28,8 @@ resource "aws_security_group" "asg-security-group-app" {
 
   tags = {
     Name = var.asg-sg-app-name
+    Environment = var.environment
+    Owner = var.owner
+    Project = var.project
   }
 }

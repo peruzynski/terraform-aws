@@ -7,9 +7,46 @@ resource "aws_autoscaling_group" "asg-app" {
   health_check_type   = "EC2"
   vpc_zone_identifier = [aws_subnet.app-subnet1.id, aws_subnet.app-subnet2.id]
 
-
   launch_template {
     id      = aws_launch_template.template-app.id
     version = aws_launch_template.template-app.latest_version
+  }
+
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 90
+      instance_warmup        = 300
+    }
+  }
+
+  warm_pool {
+    pool_state = "Stopped"
+    min_size   = 1
+    max_group_prepared_capacity = 2
+  }
+
+  tag {
+    key                 = "Name"
+    value               = var.asg-app-name
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Environment"
+    value               = var.environment
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Owner"
+    value               = var.owner
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Project"
+    value               = var.project
+    propagate_at_launch = true
   }
 }

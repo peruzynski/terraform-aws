@@ -11,4 +11,11 @@ resource "aws_db_instance" "rds-db" {
   db_subnet_group_name   = aws_db_subnet_group.subnet-grp.name
   vpc_security_group_ids = [aws_security_group.db-sg.id]
   skip_final_snapshot    = true
+
+tags = {
+    Name        = var.db-name
+    Environment = var.environment
+    Owner       = var.owner
+    Project     = var.project
+  }
 }

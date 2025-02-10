@@ -1,9 +1,10 @@
 resource "aws_security_group" "db-sg" {
   name        = var.db-sg-name
-  description = "DB SEcurity Group"
+  description = "DB Security Group"
   vpc_id      = aws_vpc.vpc.id
 
   ingress {
+    description     = "MySQL access from ASG"
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
@@ -11,6 +12,7 @@ resource "aws_security_group" "db-sg" {
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -18,6 +20,9 @@ resource "aws_security_group" "db-sg" {
   }
 
   tags = {
-    Name = var.db-sg-name
+    Name        = var.db-sg-name
+    Environment = var.environment
+    Owner       = var.owner
+    Project     = var.project
   }
 }
