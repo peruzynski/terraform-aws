@@ -20,6 +20,14 @@ resource "aws_launch_template" "template-web" {
 
   user_data = filebase64("user-data.sh")
 
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size          = 30
+      volume_type          = "gp2"
+      delete_on_termination = true
+    }
+  }
 
   instance_market_options {
     market_type = "spot"

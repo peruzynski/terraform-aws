@@ -20,6 +20,15 @@ resource "aws_launch_template" "template-app" {
 
   user_data = filebase64("user-data.sh")
 
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size          = 30
+      volume_type          = "gp2"
+      delete_on_termination = true
+    }
+  }
+
   instance_market_options {
     market_type = "spot"
     spot_options {
@@ -30,7 +39,7 @@ resource "aws_launch_template" "template-app" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name        = var.web-instance-name
+      Name        = var.app-instance-name
       Environment = var.environment
       Owner       = var.owner
       Project     = var.project
@@ -40,7 +49,7 @@ resource "aws_launch_template" "template-app" {
   tag_specifications {
     resource_type = "volume"
     tags = {
-      Name        = var.web-instance-name
+      Name        = var.app-instance-name
       Environment = var.environment
       Owner       = var.owner
       Project     = var.project
