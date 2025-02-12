@@ -86,17 +86,13 @@ variable "launch-template-web-name" {
   description = "Name for Launch-template-1"
 }
 
-variable "image-id" {
-  description = "Value for Image-id"
-}
-
 variable "instance-type" {
   description = "Value for Instance type"
 }
 
-variable "key-name" {
-  description = "Value for Key name"
-}
+# variable "key-name" {
+#   description = "Value for Key name"
+# }
 
 variable "web-instance-name" {
   description = "Value for Web Instances"

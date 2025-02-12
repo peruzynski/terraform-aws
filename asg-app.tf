@@ -1,7 +1,7 @@
 resource "aws_autoscaling_group" "asg-app" {
   name                = var.asg-app-name
-  desired_capacity    = 2
-  max_size            = 4
+  desired_capacity    = 1
+  max_size            = 2
   min_size            = 1
   target_group_arns   = [aws_lb_target_group.target-group-app.arn]
   health_check_type   = "EC2"
@@ -19,12 +19,12 @@ resource "aws_autoscaling_group" "asg-app" {
       instance_warmup        = 300
     }
   }
-
-  warm_pool {
-    pool_state = "Stopped"
-    min_size   = 1
-    max_group_prepared_capacity = 2
-  }
+# REMOVE SPOT INSTANCE CONFIGURATION TO ALLOW WARM-POOL
+  # warm_pool {
+  #   pool_state = "Stopped"
+  #   min_size   = 1
+  #   max_group_prepared_capacity = 2
+  # }
 
   tag {
     key                 = "Name"
